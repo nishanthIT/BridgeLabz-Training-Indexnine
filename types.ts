@@ -22,6 +22,35 @@ let employee: Person = {
     age: 28
 };
 
+type Theme = "light" | "dark";
+type Size = "small" | "medium" | "large";
+
+function setTheme(theme: Theme): void {
+    console.log(`Theme set to ${theme}`);
+}
+
+function isString(value: unknown): value is string {
+    return typeof value === "string";
+}
+
+function processInput(input: string | number): void {
+    if (isString(input)) {
+        console.log(input.toUpperCase());
+    } else {
+        console.log(input * 2);
+    }
+}
+
+type UserRole = {
+    id: number;
+    role: "admin" | "user" | "guest";
+};
+
+let currentTheme: Theme = "dark";
+let buttonSize: Size = "medium";
+
 console.log(greet(name));
 console.log(add(10, 20));
-console.log(employee.name);
+setTheme(currentTheme);
+processInput("hello");
+processInput(42);

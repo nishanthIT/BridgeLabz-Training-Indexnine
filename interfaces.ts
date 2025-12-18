@@ -45,5 +45,53 @@ let userInfo: UserInfo = {
     status: "active"
 };
 
+interface EventHandler {
+    (event: string, data: any): void;
+}
+
+interface Dictionary<T> {
+    [key: string]: T;
+}
+
+interface ApiResponse<T> {
+    data: T;
+    status: number;
+    message?: string;
+}
+
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+type UserKeys = keyof User;
+
+interface Database {
+    users: Dictionary<User>;
+    connect(): Promise<void>;
+    disconnect(): void;
+}
+
+function handleClick: EventHandler = (event, data) => {
+    console.log(`Event: ${event}`, data);
+};
+
+function updateUser(id: string, updates: Partial<User>): User {
+    const existingUser = { id: 1, name: "John", created: new Date() };
+    return { ...existingUser, ...updates };
+}
+
+let userDict: Dictionary<User> = {
+    "user1": user1,
+    "admin1": admin
+};
+
+let response: ApiResponse<User[]> = {
+    data: [user1, admin],
+    status: 200,
+    message: "Success"
+};
+
 console.log(createUser(user1));
-console.log(updateStatus(userInfo, "inactive"));
+console.log(updateUser("1", { name: "Updated Name" }));
+handleClick("click", { x: 10, y: 20 });
+console.log(response.data.length);
